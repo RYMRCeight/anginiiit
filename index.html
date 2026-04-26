@@ -3,214 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tangalan Heat Index Calculator</title>
+    <title>Ang Iniiiit! 🥵</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f1f5f9;
+            color: #0f172a;
         }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: var(--bg-color); 
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
         }
-        .card { 
-            background: var(--card-bg); 
-            padding: 2rem; 
-            border-radius: 16px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
-            width: 90%; 
-            max-width: 380px; 
+
+        .slider-thumb::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #ffffff;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 3px solid #f97316;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
         }
-        h2 { color: var(--text-main); text-align: center; margin-top: 0; font-weight: 700; }
-        .input-group { margin-bottom: 1.2rem; }
-        label { display: block; margin-bottom: 8px; font-size: 0.9rem; font-weight: 600; color: #64748b; }
-        input { 
-            width: 100%; 
-            padding: 12px; 
-            border: 2px solid #e2e8f0; 
-            border-radius: 8px; 
-            box-sizing: border-box; 
-            font-size: 1.1rem;
+
+        .slider-thumb::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 10px;
             outline: none;
-            transition: border-color 0.2s;
         }
-        input:focus { border-color: #3b82f6; }
-        #result-box { 
-            margin-top: 1.5rem; 
-            padding: 1.5rem; 
-            border-radius: 12px; 
-            text-align: center; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            display: none; 
+
+        .category-transition {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .hi-value { font-size: 3rem; font-weight: 800; display: block; line-height: 1; }
-        .hi-label { font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
-        .hi-desc { font-size: 0.9rem; line-height: 1.5; margin-top: 10px; opacity: 0.9; }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 md:p-6">
 
-<div class="card">
-    <h2>Heat Index</h2>
-    
-    <div class="input-group">
-        <label>Temperature (°C)</label>
-        <input type="number" id="temp" placeholder="e.g. 34" oninput="calculate()">
+    <div class="max-w-5xl w-full mx-auto flex-grow flex flex-col justify-center">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <div class="inline-flex items-center justify-center p-3 bg-orange-100 text-orange-600 rounded-2xl mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg>
+            </div>
+            <h1 class="text-5xl font-extrabold tracking-tight text-slate-900 mb-3 italic">Ang <span class="text-orange-500">Iniiiit! 🥵</span></h1>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            
+            <!-- Controls Section -->
+            <div class="lg:col-span-7 flex flex-col gap-6">
+                <div class="glass-card p-8 flex flex-col gap-8">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 bg-slate-100 rounded-lg text-slate-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="m16.24 16.24 2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="m16.24 7.76 2.83-2.83"/></svg>
+                            </div>
+                            <h2 class="text-xl font-bold">Datos ng Paligid</h2>
+                        </div>
+                        <!-- Units removed as requested (Locked to Celsius) -->
+                        <div class="px-4 py-2 bg-slate-100 rounded-xl text-xs font-bold text-slate-500 uppercase tracking-widest">
+                            Celsius Scale
+                        </div>
+                    </div>
+
+                    <!-- Temp Input -->
+                    <div class="relative">
+                        <div class="flex justify-between items-end mb-6">
+                            <div>
+                                <label class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1 block">Temperatura</label>
+                                <div class="flex items-baseline gap-1">
+                                    <span id="tempDisplay" class="text-5xl font-black text-slate-900">26.7</span>
+                                    <span class="text-xl font-bold text-slate-400">°C</span>
+                                </div>
+                            </div>
+                            <div class="mb-2 p-2 bg-orange-50 text-orange-500 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg>
+                            </div>
+                        </div>
+                        <input type="range" id="tempInput" min="26.7" max="50" step="0.1" value="30" class="w-full slider-thumb" oninput="updateUI()">
+                        <div class="flex justify-between mt-4 text-xs font-bold text-slate-400">
+                            <span>26.7°C</span>
+                            <span>50°C</span>
+                        </div>
+                    </div>
+
+                    <!-- Humidity Input -->
+                    <div class="relative">
+                        <div class="flex justify-between items-end mb-6">
+                            <div>
+                                <label class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1 block">Humididad</label>
+                                <div class="flex items-baseline gap-1">
+                                    <span id="rhDisplay" class="text-5xl font-black text-slate-900">45</span>
+                                    <span class="text-xl font-bold text-slate-400">%</span>
+                                </div>
+                            </div>
+                            <div class="mb-2 p-2 bg-blue-50 text-blue-500 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+                            </div>
+                        </div>
+                        <input type="range" id="rhInput" min="0" max="100" step="1" value="45" class="w-full slider-thumb" oninput="updateUI()">
+                        <div class="flex justify-between mt-4 text-xs font-bold text-slate-400">
+                            <span>0%</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Section -->
+            <div class="lg:col-span-5">
+                <div id="resultCard" class="glass-card h-full p-8 flex flex-col justify-between category-transition border-t-[12px] border-yellow-400 overflow-hidden relative">
+                    <!-- Background Decoration -->
+                    <div id="cardBgIcon" class="absolute -right-8 -bottom-8 opacity-5 text-slate-900 pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                    </div>
+
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-2 mb-1">
+                            <div id="statusIcon" class="text-yellow-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                            </div>
+                            <p id="categoryText" class="text-sm font-extrabold uppercase tracking-[0.2em] text-yellow-600">Babala</p>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800">Nararamdamang Init</h2>
+                    </div>
+
+                    <div class="py-12 text-center relative z-10">
+                        <div class="flex flex-col items-center justify-center">
+                            <span id="indexValue" class="text-9xl font-black text-slate-900 leading-none tracking-tighter">--</span>
+                            <span id="indexUnitLabel" class="text-3xl font-bold text-slate-300 mt-2 text-center uppercase">Degrees Celsius</span>
+                        </div>
+                    </div>
+
+                    <div id="safetyNotice" class="relative z-10 bg-white/60 backdrop-blur shadow-sm rounded-2xl p-5 border border-white">
+                        <p id="safetyAdvice" class="text-sm font-medium text-slate-700 leading-relaxed italic">
+                            "Posibleng makaranas ng pagkapagod sa matagal na pagkakabilad at/o pisikal na aktibidad."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formula and Credits -->
+        <footer class="mt-16 flex flex-col md:flex-row justify-between items-center gap-8 border-t border-slate-200 pt-8 pb-12">
+            <div class="text-center md:text-left">
+                <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Developed by</h3>
+                <p class="text-lg font-extrabold text-slate-800 flex items-center gap-2">
+                    <span class="p-1 bg-orange-500 rounded text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </span>
+                    Reymarc Jason Tampos
+                </p>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <div class="text-center md:text-right">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-tighter">Powered by</p>
+                    <p class="text-sm font-black text-slate-600">Rothfusz Regression Model</p>
+                </div>
+                <div class="h-10 w-px bg-slate-200"></div>
+                <div class="p-3 bg-white rounded-xl shadow-sm border border-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-500"><path d="M12 2v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="M20 12h2"/><path d="m19.07 4.93-1.41-1.41"/><path d="M15.94 2l-3.5 3.5"/><path d="m22 8-3.5 3.5"/><path d="M2 12h2"/><path d="m4.93 19.07 1.41-1.41"/><path d="M12 20v2"/><path d="m19.07 19.07-1.41-1.41"/><path d="M14 12a2 2 0 1 0-4 0 2 2 0 0 0 4 0Z"/></svg>
+                </div>
+            </div>
+        </footer>
     </div>
-    
-    <div class="input-group">
-        <label>Relative Humidity (%)</label>
-        <input type="number" id="rh" placeholder="e.g. 69" oninput="calculate()">
-    </div>
 
-    <div id="result-box">
-        <span class="hi-label" id="hi-status"></span>
-        <span class="hi-value" id="hi-display">0</span>
-        <p class="hi-desc" id="hi-msg"></p>
-    </div>
-</div>
+    <script>
+        const icons = {
+            caution: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>',
+            extremeCaution: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>',
+            danger: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+            extremeDanger: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m4.93 4.93 14.14 14.14"/><path d="M2 12h20"/><path d="m19.07 4.93-14.14 14.14"/></svg>'
+        };
 
-<script>
-function calculate() {
-    // BUG FIX: Explicitly cast to Number to avoid string concatenation
-    const tc = Number(document.getElementById('temp').value);
-    const rh = Number(document.getElementById('rh').value);
-    const resultBox = document.getElementById('result-box');
-
-    // Validation: Heat Index formula only works effectively above 26.7°C (80°F)
-    if (!tc || !rh || tc < 20 || rh < 0 || rh > 100) {
-        resultBox.style.display = 'none';
-        return;
-    }
-
-    // Convert Celsius to Fahrenheit
-    const tf = (tc * 9/5) + 32;
-    
-    // Initial simple calculation
-    let hi = 0.5 * (tf + 61.0 + ((tf - 68.0) * 1.2) + (rh * 0.094));
-
-    // Rothfuz Regression Equation (refined for accuracy)
-    if (hi > 79) {
-        hi = -42.379 + 2.04901523 * tf + 10.14333127 * rh 
-             - 0.22475541 * tf * rh - 0.00683783 * tf * tf 
-             - 0.05481717 * rh * rh + 0.0122874 * tf * tf * rh 
-             + 0.0085282 * tf * rh * rh - 0.0000199 * tf * tf * rh * rh;
-
-        // Adjustments for specific humidity/temp ranges
-        if (rh < 13 && tf >= 80 && tf <= 112) {
-            hi -= ((13 - rh) / 4) * Math.sqrt((17 - Math.abs(tf - 95)) / 17);
-        } else if (rh > 85 && tf >= 80 && tf <= 87) {
-            hi += ((rh - 85) / 10) * ((87 - tf) / 5);
+        function calculateHeatIndex(T_c, RH) {
+            // Internal calculation requires Fahrenheit
+            let T_f = (T_c * 9/5) + 32;
+            
+            let HI_f = 0.5 * (T_f + 61.0 + ((T_f - 68.0) * 1.2) + (RH * 0.094));
+            
+            if (HI_f >= 80) {
+                HI_f = -42.379 + 2.04901523 * T_f + 10.14333127 * RH - 0.22475541 * T_f * RH - 
+                     0.00683783 * Math.pow(T_f, 2) - 0.05481717 * Math.pow(RH, 2) + 
+                     0.00122874 * Math.pow(T_f, 2) * RH + 0.00085282 * T_f * Math.pow(RH, 2) - 
+                     0.00000199 * Math.pow(T_f, 2) * Math.pow(RH, 2);
+                
+                if (RH < 13 && T_f >= 80 && T_f <= 112) {
+                    HI_f -= ((13 - RH) / 4) * Math.sqrt((17 - Math.abs(T_f - 95.)) / 17);
+                } else if (RH > 85 && T_f >= 80 && T_f <= 87) {
+                    HI_f += ((RH - 85) / 10) * ((87 - T_f) / 5);
+                }
+            }
+            
+            // Return both values: HI in Fahrenheit (for safety logic) and converted HI in Celsius
+            return {
+                f: HI_f,
+                c: (HI_f - 32) * 5/9
+            };
         }
-    }
 
-    // Convert back to Celsius and round
-    const hiCelsius = Math.round((hi - 32) * 5/9);
-    displayResult(hiCelsius);
-}
+        function getSafetyInfo(hiF) {
+            if (hiF >= 130) return { cat: 'Matinding Panganib', color: 'border-red-600', bg: 'bg-red-50', text: 'text-red-700', icon: icons.extremeDanger, note: 'Napakataas ng posibilidad ng heatstroke sa patuloy na pagkakabilad.' };
+            if (hiF >= 103) return { cat: 'Panganib', color: 'border-rose-500', bg: 'bg-rose-50', text: 'text-rose-700', icon: icons.danger, note: 'Malamang na makaranas ng heat cramps o heat exhaustion; posibleng mag-heat stroke sa matagal na pagkakabilad.' };
+            if (hiF >= 91) return { cat: 'Matinding Babala', color: 'border-orange-500', bg: 'bg-orange-50', text: 'text-orange-700', icon: icons.extremeCaution, note: 'Maaaring magdulot ng heat stroke, heat cramps, o heat exhaustion sa matagal na pagkakabilad.' };
+            return { cat: 'Babala', color: 'border-yellow-400', bg: 'bg-yellow-50', text: 'text-yellow-700', icon: icons.caution, note: 'Posibleng makaranas ng pagkapagod sa matagal na pagkakabilad at/o pisikal na aktibidad.' };
+        }
 
-function displayResult(val) {
-    const box = document.getElementById('result-box');
-    const status = document.getElementById('hi-status');
-    const display = document.getElementById('hi-display');
-    const msg = document.getElementById('hi-msg');
+        function updateUI() {
+            const tempC = parseFloat(document.getElementById('tempInput').value);
+            const rhVal = parseFloat(document.getElementById('rhInput').value);
+            
+            document.getElementById('tempDisplay').innerText = tempC.toFixed(1);
+            document.getElementById('rhDisplay').innerText = rhVal;
 
-    box.style.display = 'block';
-    display.innerText = val + "°C";
+            const results = calculateHeatIndex(tempC, rhVal);
+            
+            document.getElementById('indexValue').innerText = Math.round(results.c);
 
-    // Classification Logic
-    if (val < 27) {
-        setTheme(box, "#f1f5f9", "#475569", "Normal", "Conditions are safe. No special precautions needed.");
-    } else if (val >= 27 && val <= 32) {
-        setTheme(box, "#fef3c7", "#92400e", "Caution", "Fatigue possible with prolonged exposure and activity.");
-    } else if (val >= 33 && val <= 40) {
-        setTheme(box, "#ffedd5", "#c2410c", "Extreme Caution", "Heat cramps and heat exhaustion are possible.");
-    } else if (val >= 41 && val <= 51) {
-        setTheme(box, "#fee2e2", "#b91c1c", "Danger", "Heat exhaustion is likely. Limit outdoor activities.");
-    } else {
-        setTheme(box, "#450a0a", "#ffffff", "Extreme Danger", "Heatstroke is imminent. Seek immediate medical cooling.");
-    }
-}
+            const info = getSafetyInfo(results.f);
+            const card = document.getElementById('resultCard');
+            const catText = document.getElementById('categoryText');
+            const advice = document.getElementById('safetyAdvice');
+            const statusIcon = document.getElementById('statusIcon');
 
-function setTheme(el, bg, color, label, message) {
-    el.style.backgroundColor = bg;
-    el.style.color = color;
-    document.getElementById('hi-status').innerText = label;
-    document.getElementById('hi-msg').innerText = message;
-}
-</script>
+            // Apply style updates
+            card.style.borderTopColor = info.color.split('-')[1] === 'yellow' ? '#facc15' : 
+                                       info.color.split('-')[1] === 'orange' ? '#f97316' : 
+                                       info.color.split('-')[1] === 'rose' ? '#f43f5e' : '#dc2626';
 
-</body>
-</html>
-        <span class="hi-value" id="hi-display">0</span>
-        <p class="hi-desc" id="hi-msg"></p>
-    </div>
-</div>
+            catText.innerText = info.cat;
+            catText.className = `text-sm font-extrabold uppercase tracking-[0.2em] ${info.text}`;
+            statusIcon.className = info.text;
+            statusIcon.innerHTML = info.icon;
+            advice.innerText = `"${info.note}"`;
+        }
 
-<script>
-function calculate() {
-    const tc = parseFloat(document.getElementById('temp').value);
-    const rh = parseFloat(document.getElementById('rh').value);
-    const resultBox = document.getElementById('result-box');
-
-    if (isNaN(tc) || isNaN(rh) || tc < 20) {
-        resultBox.style.display = 'none';
-        return;
-    }
-
-    // Convert to Fahrenheit for Rothfuz formula
-    const tf = (tc * 9/5) + 32;
-    
-    // Simple HI check
-    let hi = 0.5 * (tf + 61.0 + ((tf - 68.0) * 1.2) + (rh * 0.094));
-
-    // Complex Rothfuz Regression (if HI > 80°F)
-    if (hi > 80) {
-        hi = -42.379 + 2.04901523*tf + 10.14333127*rh - 0.22475541*tf*rh 
-             - 0.00683783*tf*tf - 0.05481717*rh*rh + 0.0122874*tf*tf*rh 
-             + 0.0085282*tf*rh*rh - 0.0000199*tf*tf*rh*rh;
-    }
-
-    const hiCelsius = Math.round((hi - 32) * 5/9);
-    displayResult(hiCelsius);
-}
-
-function displayResult(val) {
-    const box = document.getElementById('result-box');
-    const status = document.getElementById('hi-status');
-    const display = document.getElementById('hi-display');
-    const msg = document.getElementById('hi-msg');
-
-    box.style.display = 'block';
-    display.innerText = val + "°C";
-
-    // Logic for classification (The "Fuzzy" Logic part)
-    if (val < 27) {
-        setTheme(box, "#e2e8f0", "#475569", "Normal", "Conditions are comfortable. Stay hydrated.");
-    } else if (val >= 27 && val <= 32) {
-        setTheme(box, "#fef3c7", "#92400e", "Caution", "Fatigue possible with prolonged exposure and activity.");
-    } else if (val >= 33 && val <= 40) {
-        setTheme(box, "#ffedd5", "#9a3412", "Extreme Caution", "Heat cramps and heat exhaustion are possible.");
-    } else if (val >= 41 && val <= 53) {
-        setTheme(box, "#fee2e2", "#991b1b", "Danger", "Heat exhaustion is likely. Limit outdoor activities.");
-    } else {
-        setTheme(box, "#450a0a", "#ffffff", "Extreme Danger", "Heatstroke is imminent. Seek shade and cool down immediately.");
-    }
-}
-
-function setTheme(el, bg, color, label, message) {
-    el.style.backgroundColor = bg;
-    el.style.color = color;
-    document.getElementById('hi-status').innerText = label;
-    document.getElementById('hi-msg').innerText = message;
-}
-</script>
-
+        window.onload = updateUI;
+    </script>
 </body>
 </html>
